@@ -1,3 +1,3 @@
-const carValidation = (method) => {};
+const carPostValidation = (method) => {};
 
 module.exports = { carValidation };
