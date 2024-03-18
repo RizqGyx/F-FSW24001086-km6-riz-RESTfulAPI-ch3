@@ -801,5 +801,22 @@
       "Remote fuel lid release",
       "Traveler/mini trip computer"
     ]
+  },
+  {
+    "id": "f5be216a-40a6-4603-89c6-5abea9d9632f",
+    "plate": "ABC123",
+    "manufacture": "Toyota",
+    "model": "Camry",
+    "image": "camry.jpg",
+    "rentPerDay": 150,
+    "capacity": 5,
+    "description": "Spacious sedan with comfortable seating",
+    "availableAt": "2024-03-20T08:00:00.000Z",
+    "transmission": "Automatic",
+    "available": true,
+    "type": "Sedan",
+    "year": 2023,
+    "options": ["Bluetooth connectivity", "Backup camera", "Keyless entry"],
+    "specs": ["4-cylinder engine", "Leather seats", "Navigation system"]
   }
 ]

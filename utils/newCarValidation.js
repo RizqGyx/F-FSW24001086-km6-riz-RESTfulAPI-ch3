@@ -1,4 +1,4 @@
-const carPostValidation = (method, cars) => {
+const carPostValidation = (carData) => {
   const formatKeys = [
     "plate",
     "manufacture",
@@ -16,12 +16,13 @@ const carPostValidation = (method, cars) => {
     "specs",
   ];
 
-  if (
-    keys.length !== formatKeys.length ||
-    !exampleKeys.every((key) => keys.includes(key))
-  ) {
-    return res.status(400).json({ error: "Invalid data format" });
-  }
+  const keys = Object.keys(carData);
+
+  const isValidFormat =
+    keys.length === formatKeys.length &&
+    formatKeys.every((key) => keys.includes(key));
+
+  return isValidFormat;
 };
 
-module.exports = { carValidation };
+module.exports = { carPostValidation };
