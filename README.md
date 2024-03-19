@@ -39,8 +39,12 @@ npm start
 Untuk melihat antarmuka, dapat menggunakan link berikut:
 
 ```
-http://localhost:3000 
+http://localhost:3000
 ```
+
+## Postman Preview
+
+[POSTMAN](https://www.postman.com/cryosat-geologist-43475893/workspace/challange3-restfullapi-binar/collection/29668082-76e16ed0-eaf4-4912-90fb-a31bbd97665a?action=share&creator=29668082)
 
 ## API Routes
 
@@ -79,6 +83,5 @@ http://localhost:3000
 ```http
   /cars/id
 ```
-
 
 # F-FSW24001086-km6-riz-RESTfulAPI-ch3

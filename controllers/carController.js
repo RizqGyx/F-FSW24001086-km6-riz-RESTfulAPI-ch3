@@ -2,6 +2,7 @@ const { fs, cars } = require("../utils/readingJSON");
 const { generateRandomId } = require("../utils/generateId");
 const { response } = require("../utils/response");
 const { carPostValidation } = require("../utils/newCarValidation");
+const { validateUpdateData } = require("../utils/updateValidation");
 
 // GET Method Start ==========================
 const getAllCar = (req, res) => {
@@ -83,14 +84,33 @@ const addNewCar = (req, res) => {
 const updatePutById = (req, res) => {
   try {
     const { id } = req.params;
-    const { make, model, year } = req.body;
+    const { plate, manufacture, model, year, ...rest } = req.body;
     const index = cars.findIndex((car) => car.id === id);
 
     if (index === -1) {
-      return response(404, null, `Car with ID : ${getId} not found`, req, res);
+      return response(404, null, `Car with ID : ${id} not found`, req, res);
     }
 
-    const updatedCar = { id, make, model, year };
+    const allowedKeys = [
+      "plate",
+      "manufacture",
+      "model",
+      "year",
+      ...Object.keys(rest),
+    ];
+
+    if (!validateUpdateData(req.body, allowedKeys)) {
+      return response(400, null, `Invalid update data format`, req, res);
+    }
+
+    const updatedCar = {
+      ...cars[index],
+      plate,
+      manufacture,
+      model,
+      year,
+      ...rest,
+    };
     cars[index] = updatedCar;
     fs.writeFileSync(`${__dirname}/../api/cars.json`, JSON.stringify(cars));
 
@@ -110,14 +130,33 @@ const updatePutById = (req, res) => {
 const updatePatchById = (req, res) => {
   try {
     const { id } = req.params;
-    const { make, model, year } = req.body;
+    const { plate, manufacture, model, year, ...rest } = req.body;
     const index = cars.findIndex((car) => car.id === id);
 
     if (index === -1) {
       return response(404, null, `Car with ID : ${id} not found`, req, res);
     }
 
-    const updatedCar = { ...cars[index], make, model, year };
+    const allowedKeys = [
+      "plate",
+      "manufacture",
+      "model",
+      "year",
+      ...Object.keys(rest),
+    ];
+
+    if (!validateUpdateData(req.body, allowedKeys)) {
+      return response(400, null, `Invalid update data format`, req, res);
+    }
+
+    const updatedCar = {
+      ...cars[index],
+      plate,
+      manufacture,
+      model,
+      year,
+      ...rest,
+    };
     cars[index] = updatedCar;
     fs.writeFileSync(`${__dirname}/../api/cars.json`, JSON.stringify(cars));
 
@@ -129,6 +168,7 @@ const updatePatchById = (req, res) => {
       res
     );
   } catch (error) {
+    console.error(error);
     response(500, null, "Internal Server Error", req, res);
   }
 };
